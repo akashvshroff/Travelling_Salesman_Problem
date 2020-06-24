@@ -1,4 +1,5 @@
 import networkx as nx
+from graph_gen_and_visualise import *
 
 
 def nearest_neighbour(g):
@@ -15,12 +16,24 @@ def nearest_neighbour(g):
     for choice in range(n-1):  # repeat the process n-1 times
         next_node, min_edge = None, float("inf")
         # min edge is the distance to the closest vertex
-        for v in g.nodes():  # choose closest vertex
-            curr_weight = g[current_node][v]['weight']
-            if v not in path and curr_weight < min_edge:
-                next_node, min_edge = v, curr_weight
+        for v in g.nodes():
+            if v not in path:  # choose closest vertex
+                curr_weight = g[current_node][v]['weight']
+                if curr_weight < min_edge:
+                    next_node, min_edge = v, curr_weight
         path.append(next_node)
         current_node = next_node
-    path.append(path[-1])  # cycle so add the first element
+
+    path.append(path[0])  # cycle so add the first element
     weight = sum(g[path[i]][path[i+1]]['weight'] for i in range(len(path)-1))
-    return weight
+    return weight, path
+
+
+def main(n):
+    g = draw_graph(n)
+    weight, path = nearest_neighbour(g)
+    print("Weight close to optimal is {}, and path to be followed is {}".format(weight, path))
+    display_graph(g, path)
+
+
+main(5)

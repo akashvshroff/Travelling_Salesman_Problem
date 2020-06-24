@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from random_graph_generator import *
+from graph_gen_and_visualise import *
 
 
 def get_lower_bound(g, sub_cycle):
