@@ -37,8 +37,9 @@ def branch_and_bound(g, sub_cycle=None, current_min=float("inf"), min_cycle=[]):
         sub_cycle.append(sub_cycle[0])
         cycle_weight = sum([g[sub_cycle[i]][sub_cycle[i+1]]["weight"]
                             for i in range(len(sub_cycle)-1)])
-        current_cycle = list(sub_cycle).append(sub_cycle[0])
+        current_cycle = list(sub_cycle)
         return cycle_weight, current_cycle
+
     unused_nodes = [(g[sub_cycle[-1]][v]['weight'], v) for v in g.nodes() if v not in sub_cycle]
     # sort them by weight so you consider the shortest node first
     unused_nodes = sorted(unused_nodes)
@@ -46,23 +47,19 @@ def branch_and_bound(g, sub_cycle=None, current_min=float("inf"), min_cycle=[]):
         extended_sub_cycle = list(sub_cycle)
         extended_sub_cycle.append(node)
         if get_lower_bound(g, extended_sub_cycle) < current_min:  # only then will we bother checking
-            potential_weight, potential_cycle = branch_and_bound(g, extended_sub_cycle, current_min)
+            potential_weight, potential_cycle = branch_and_bound(
+                g, extended_sub_cycle, current_min, min_cycle)
             if current_min > potential_weight:
                 current_min = potential_weight
                 min_cycle = potential_cycle
     return current_min, min_cycle  # shortest cycle weight
 
 
-def main():
-    g = draw_graph(5)
-    #weight, cycle = branch_and_bound(g)
-    weight, cycle = branch_and_bound(g), None
-    print(weight, cycle)
-    pos = nx.spring_layout(g)
-    labels = nx.get_edge_attributes(g, 'weight')
-    nx.draw(g, pos)
-    nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
-    plt.show()
+def main(n):
+    g = draw_graph(n)
+    weight, cycle = branch_and_bound(g)
+    print("The least weight is {}, and the path to be taken is {}".format(weight, cycle))
+    display_graph(g, cycle)
 
 
-main()
+main(8)
