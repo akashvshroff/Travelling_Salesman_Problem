@@ -40,7 +40,7 @@ def find_optimal_tour(g, memo, n):
     return min_tour
 
 
-def dynamic_programming(g):
+def dynamic_programming_fn(g):
     """
     The function inputs a graph and returns the shortest path as calculated by a dynamic
     programming approach. The function uses a binary notation to
@@ -71,9 +71,10 @@ def dynamic_programming(g):
 
 def main(n):
     g = draw_graph(n)
-    weight, cycle = dynamic_programming(g)
+    weight, cycle = dynamic_programming_fn(g)
     print("Optimal cost is {}, and the corresponding cycle is {}".format(weight, cycle))
     display_graph(g, cycle)
 
 
-main(5)
+if __name__ == "__main__":
+    main(5)

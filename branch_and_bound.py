@@ -62,4 +62,5 @@ def main(n):
     display_graph(g, cycle)
 
 
-main(8)
+if __name__ == '__main__':
+    main(8)

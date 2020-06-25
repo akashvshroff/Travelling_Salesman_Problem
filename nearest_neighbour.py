@@ -36,4 +36,5 @@ def main(n):
     display_graph(g, path)
 
 
-main(5)
+if __name__ == "__main__":
+    main(5)
