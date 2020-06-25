@@ -38,6 +38,7 @@ def two_approx(g):
     """
     mst = nx.minimum_spanning_tree(g)
     dfs = list(nx.dfs_preorder_nodes(mst, 0))
+    # print(dfs)
     path = []
     for node in dfs:
         if node not in path:
