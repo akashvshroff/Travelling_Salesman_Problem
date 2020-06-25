@@ -24,8 +24,8 @@ def find_optimal_tour(g, memo, n):
     min_tour, end_state = [None for _ in range(n+1)], (1 << n) - 1
     for i in range(n-1, 0, -1):
         index = -1
-        for j in range(0, n):
-            if not j or not (end_state >> j) & 1:
+        for j in range(1, n):
+            if not (end_state >> j) & 1:
                 continue
             if index == -1:
                 index = j
