@@ -52,6 +52,8 @@ def dynamic_programming(g):
     T = [[float("inf")] * (1 << n) for _ in range(n)]  # setting up the table
     T[0][1] = 0  # initialise
     for s in range(1 << n):  # looping through all the subsets
+        # print("-"*15)
+        # print(np.matrix(T))
         if not s & 1 or not bin(s).count('1') > 1:  # sets of length more than 1
             # 0 in the subset
             continue
