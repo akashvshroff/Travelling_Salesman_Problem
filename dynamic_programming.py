@@ -14,6 +14,7 @@ def find_optimal_cost(g, memo, n):
 
 def find_optimal_tour(g, memo, n):
     """
+    HELD-KARP ALGORITHM:
     Finds the optimal tour from working backwards from the last node to the
     first node. Here, both are 0. We keep track of the current state
     (which initially is all nodes visited). The variable index tracks the best
