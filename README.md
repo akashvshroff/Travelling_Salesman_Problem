@@ -17,6 +17,8 @@
         - It works through the principle of search tree pruning and at any time, we store the best possible solution thus far and generate more solutions (or branches) node by node. Upon adding any node, we check whether the lower bound of the optimal path that we can get through this branch is lesser than our current minimum cost. If true, then we recursively generate the tree and check at the addition of every node. If false, then we discard the branch and move on. Once the entire branch is generated, if the cost of the branch is less than the minimum cost thus far, we store that value in the minimum cost and store the branch in the current optimal cycle and continue checking all possible branches.
         - Checking the lower bound is the primary heuristic of the Branch and Bound approach and can be reliably checked by ascertaining the cost of the Minimum Spanning Tree of all the nodes that have not yet been used in the current sub-cycle. The proof that the cost of the MST gives the lower bound for the TSP, is rather simple. If you remove an edge from the optimal cycle, you get a tree and the cost of this tree is lower bounded by the cost of the Minimum Spanning Tree - thus the cost of the optimal cycle is lower bounded by the cost of the MST.
         - Once all the branches are checked, we return the current minimum cost and minimum cycle, this is our optimal cost and therefore answer to the TSP.
+        - The output produced by the algorithm:
+        ![alt-text](https://github.com/akashvshroff/Travelling_Salesman_Problem/blob/master/Example_Images/branch_and_bound.png)
     - The next algorithm we cover is the Dynamic Programming approach to solving the TSP:
         - Better known as the Held Karp algorithm.
         - [Dynamic Programming](https://www.educative.io/courses/grokking-dynamic-programming-patterns-for-coding-interviews/m2G1pAq0OO0#:~:text=Dynamic%20Programming%20(DP)%20is%20an,optimal%20solution%20to%20its%20subproblems) or DP is an algorithmic technique where large problems can be solved by breaking them down into combinations of subproblems and then solving the subproblems leading up to the larger problem. We utilise the fact that the optimal solution to the larger problem is some combination of the optimal solutions to its subproblems.
@@ -31,6 +33,8 @@
         - Once such a table is built we have 2 further operations:
             - Finding minimum cost, or the optimal cost, is the minimum of C(S,i) for all i in range(n) + the cost of getting to i from the starting node, that is node 0.
             - Finding the optimal path - which can be found by working backwards and finding i and j recursively, starting from i = n -1 and ending at i = 0.
+            - Here is an image for the path produced when the algorithm is run:
+            ![alt-text](https://github.com/akashvshroff/Travelling_Salesman_Problem/blob/master/Example_Images/dynamic_programming.png)
 
 - Approximate Algorithms:
     - These algorithms are thought to be fairly usable in practice and owing to their more feasible time complexity can deal with nodes in the range of millions.
@@ -38,6 +42,8 @@
         - In this approach, you begin with any node and then add the node that is closest to it, (or the least cost connection). Maintain a list of nodes that have been visited already and if the closest node has already been visited, skip it and add the next closest node.
         - Continue this process until a path that has the same length as the number of nodes has been built, following which you append the first node to the path to create a cycle.
         - While this algorithm works fairly okay in practice, for a Euclidian TSP, this approach returns a cost that is roughly log(n) times worse than the optimal where n is the number of nodes in the graph.
+        - Output of the graph, as you can see, it is not the optimal solution:
+        ![alt-text](https://github.com/akashvshroff/Travelling_Salesman_Problem/blob/master/Example_Images/nearest_neighbour.png)
     - 2-Approximation:
         - This approach to solving the TSP returns a solution that is at most twice the optimal cost.
         - The steps to it are as follows:
@@ -48,5 +54,4 @@
             - Loop through it to generate the weight of the cycle.
 
 ## P.S:
-- Example outputs for all the algorithms are included in the Example_Images folder.
 - The graph_gen_and_visualise program randomly generates the graphs and helps visualise them using matplotlib and networkx to better understand the algorithms and the larger TSP.
